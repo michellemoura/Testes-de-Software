@@ -12,7 +12,6 @@ Scenario: Enable system contrast mode (2a)
   When the user clicks the Enable high contrast option in the accessibility bar
   Then the system updates with high contrast colors
 
-
   @myCourses
 Scenario: Go to the module my courses (3a)
 Given that the user is logged in to the system2
@@ -25,3 +24,9 @@ Given that the user is logged in to the system3
 When the user clicks on the open selections module
 Then the system shows open selections
 
+  @exchangesphotos
+Scenario: Exchanges photo (5a)
+Given that the user is logged in to the system4
+When the user clicks on the option user information and click on edit profile
+And and the user clicks on the change photo button
+Then the system returns the changed photo

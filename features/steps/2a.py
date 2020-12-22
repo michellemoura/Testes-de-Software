@@ -22,29 +22,20 @@ def step_impl(context):
     context.driver.maximize_window()
     context.driver.get('https://teste.leadfortaleza.com.br/ead/login')
 
-    username = context.driver.find_element_by_id('login')
-    username.send_keys('alunoauditivo26')
-    time.sleep(1)
-
-    password = context.driver.find_element_by_id('password')
-    password.send_keys('abcd1234')
-    time.sleep(1)
-
-    login_button = context.driver.find_element_by_id('login-btn')
-    login_button.click()
+    login(context)
     time.sleep(1)
 
 
 @when('the user clicks the Enable high contrast option in the accessibility bar')
 def step_impl(context):
-    login_button = context.driver.find_element_by_id('bt-highContrast')
-    login_button.click()
+    highContrast_button = context.driver.find_element_by_id('bt-highContrast')
+    highContrast_button.click()
 
 
 @then('the system updates with high contrast colors')
 def step_impl(context):
     WebDriverWait(context.driver, 3).until(EC.visibility_of_element_located((By.ID, 'bt-highContrast')))
-    btnContraste = context.driver.find_element_by_id('bt-highContrast').get_attribute("aria-label")
-    assert btnContraste == "Desabilitar alto contraste" or btnContraste == "Habilitar alto contraste"
+    btncontrast = context.driver.find_element_by_id('bt-highContrast').get_attribute("aria-label")
+    assert btncontrast == "Desabilitar alto contraste" or btncontrast == "Habilitar alto contraste"
     time.sleep(2)
     context.driver.quit()

@@ -1,4 +1,4 @@
-from behave import given, when, then
+from behave import *
 from selenium.webdriver.chrome.options import Options
 import os
 import sys
@@ -14,7 +14,7 @@ path_dir = os.path.join(ROOT_DIR, "utils")
 sys.path.append(path_dir)
 
 
-@given('that the user is logged in to the system2')
+@given('that the user is logged in to the system4')
 def step_impl(context):
     options = Options()
     options.add_argument('--incognito')
@@ -26,16 +26,27 @@ def step_impl(context):
     time.sleep(1)
 
 
-@when('user click on my courses module')
+@when('the user clicks on the option user information and click on edit profile')
 def step_impl(context):
-    mycourses_button = context.driver.find_element_by_id('nav-item-1')
-    mycourses_button.click()
+    infouser_button = context.driver.find_element_by_id('avatar')
+    infouser_button.click()
+    time.sleep(2)
+
+    profile_button = context.driver.find_element_by_class_name('text-secondary')
+    profile_button.click()
+    time.sleep(30)
 
 
-@then('the system presents the course content screen')
+@step('and the user clicks on the change photo button')
 def step_impl(context):
-    WebDriverWait(context.driver, 3).until(EC.visibility_of_element_located((By.ID, 'smallHeader')))
-    mycourse = context.driver.find_element_by_id('smallHeader').text
-    assert mycourse == "Meus Cursos"
+    path = os.path.join(ROOT_DIR, 'src', 'natalead.jpg')
+    context.driver.find_element_by_id('inputAvatar').send_keys(path)
+    time.sleep(5)
+
+
+@then('the system returns the changed photo')
+def step_impl(context):
+    alteredphoto = context.driver.find_element_by_class_name('toast-message').get_attribute("aria-label")
+    assert alteredphoto == "Foto alterada com sucesso!"
     time.sleep(2)
     context.driver.quit()
