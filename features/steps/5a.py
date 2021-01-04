@@ -34,7 +34,7 @@ def step_impl(context):
 
     profile_button = context.driver.find_element_by_class_name('text-secondary')
     profile_button.click()
-    time.sleep(3)
+    time.sleep(2)
 
 
 @step('and the user clicks on the change photo button')
