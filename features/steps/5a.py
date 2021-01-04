@@ -34,18 +34,19 @@ def step_impl(context):
 
     profile_button = context.driver.find_element_by_class_name('text-secondary')
     profile_button.click()
-    time.sleep(30)
+    time.sleep(3)
 
 
 @step('and the user clicks on the change photo button')
 def step_impl(context):
     path = os.path.join(ROOT_DIR, 'src', 'natalead.jpg')
     context.driver.find_element_by_id('inputAvatar').send_keys(path)
-    time.sleep(5)
+    time.sleep(3)
 
 
 @then('the system returns the changed photo')
 def step_impl(context):
+    WebDriverWait(context.driver, 3).until(EC.visibility_of_element_located((By.CLASS_NAME, 'toast-message')))
     alteredphoto = context.driver.find_element_by_class_name('toast-message').get_attribute("aria-label")
     assert alteredphoto == "Foto alterada com sucesso!"
     time.sleep(2)

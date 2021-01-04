@@ -30,12 +30,14 @@ def step_impl(context):
 def step_impl(context):
     highContrast_button = context.driver.find_element_by_id('bt-highContrast')
     highContrast_button.click()
+    time.sleep(3)
+    highContrast_button.click()
 
 
 @then('the system updates with high contrast colors')
 def step_impl(context):
     WebDriverWait(context.driver, 3).until(EC.visibility_of_element_located((By.ID, 'bt-highContrast')))
     btncontrast = context.driver.find_element_by_id('bt-highContrast').get_attribute("aria-label")
-    assert btncontrast == "Desabilitar alto contraste" or btncontrast == "Habilitar alto contraste"
+    assert btncontrast == "Desabilitar alto contraste"
     time.sleep(2)
     context.driver.quit()
